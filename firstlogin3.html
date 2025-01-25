@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Selection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+
+        .popup-container {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .popup-container h1 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .role-selection {
+            display: flex;
+            justify-content: space-around;
+            gap: 1rem;
+        }
+
+        .role-selection button {
+            flex: 1;
+            padding: 1rem;
+            font-size: 1rem;
+            background: #008080;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .role-selection button:hover {
+            background: #005f5f;
+        }
+
+        .popup-image {
+            background: url('https://via.placeholder.com/150') center/cover no-repeat;
+            height: 150px;
+            width: 150px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup-container">
+        <div class="popup-image"></div>
+        <h1>Are you a Teacher or a Student?</h1>
+        <div class="role-selection">
+            <button id="studentBtn">Student</button>
+            <button id="teacherBtn">Teacher</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('studentBtn').addEventListener('click', () => {
+            alert('Redirecting to the Student Login page.');
+            // Replace with actual redirection logic
+            window.location.href = 'studentlogin.html';
+        });
+
+        document.getElementById('teacherBtn').addEventListener('click', () => {
+            alert('Redirecting to the Teacher Login page.');
+            // Replace with actual redirection logic
+            window.location.href = 'teacherlogin.html';
+        });
+    </script>
+</body>
+</html>

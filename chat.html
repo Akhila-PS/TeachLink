@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Messaging</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            width: 100%;
+            background-color: #008080;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .user-options {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar .user-options a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .navbar .user-options a:hover {
+            text-decoration: none;
+        }
+
+        /* Tabs Container */
+        .tabs-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 2rem;
+        }
+
+        .tab {
+            padding: 0.8rem 2rem;
+            background-color: #008080;
+            margin: 0.5rem 0;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 5px;
+        }
+
+        .tab:hover {
+            background-color: #006666;
+        }
+
+        /* Styling for anchor tags to remove underline and set white color */
+        .navbar a, .tab a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar a:hover, .tab a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Teacher Dashboard</div>
+        <div class="user-options">
+            <a href="afterLogin5.html" class="goback">GoBack</a>
+            <a href="profile.html" class="profile">Profile</a>
+            <a href="teachersconnect.html" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <!-- Tabs for students -->
+    <div class="tabs-container">
+        <div class="tab"><a href="chating.html">Abijith</a></div>
+        <div class="tab"><a href="chating.html">Adharv</a></div>
+        <div class="tab"><a href="chating.html">Adithya</a></div>
+        <div class="tab"><a href="chating.html">Adwaith</a></div>
+        <div class="tab"><a href="chating.html">Aiswarya</a></div>
+        <div class="tab"><a href="chating.html">Akash</a></div>
+        <div class="tab"><a href="chating.html">Akhila</a></div>
+        <div class="tab"><a href="chating.html">Sahala</a></div>
+    </div>
+
+</body>
+</html>

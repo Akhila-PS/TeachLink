@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After Login Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            width: 90%;
+            max-width: 1200px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .dashboard-container h1 {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .card {
+            background: #008080;
+            color: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+        }
+
+        .card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome to Your Dashboard</h1>
+        <div class="card" onclick="redirectTo('attendance-upload.html')">
+            <div class="icon"><i class="fas fa-user-check"></i></div>
+            <h2>Attendance Upload</h2>
+            <p>Upload student attendance records easily.</p>
+        </div>
+        <div class="card" onclick="redirectTo('marks-upload.html')">
+            <div class="icon"><i class="fas fa-clipboard-list"></i></div>
+            <h2>Marks Upload</h2>
+            <p>Submit and manage student marks.</p>
+        </div>
+        <div class="card" onclick="redirectTo('rating.html')">
+            <div class="icon"><i class="fas fa-star"></i></div>
+            <h2>Rate Students</h2>
+            <p>Evaluate participation, teamwork, and punctuality.</p>
+        </div>
+        <div class="card" onclick="redirectTo('chat.html')">
+            <div class="icon"><i class="fas fa-comments"></i></div>
+            <h2>Chat</h2>
+            <p>Communicate with your students in real-time.</p>
+        </div>
+        <div class="card" onclick="redirectTo('notepad.html')">
+            <div class="icon"><i class="fas fa-sticky-note"></i></div>
+            <h2>Notepad</h2>
+            <p>Keep track of important notes and reminders.</p>
+        </div>
+        <div class="card" onclick="redirectTo('summary.html')">
+            <div class="icon"><i class="fas fa-chart-bar"></i></div>
+            <h2>Summary</h2>
+            <p>Review and analyze student performance summaries.</p>
+        </div>
+        <div class="card" onclick="redirectTo('attendance-calendar.html')">
+            <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+            <h2>Attendance Calendar</h2>
+            <p>Track attendance visually with a calendar.</p>
+        </div>
+        <div class="card" onclick="redirectTo('study-materials.html')">
+            <div class="icon"><i class="fas fa-book"></i></div>
+            <h2>Study Materials</h2>
+            <p>Upload and manage study resources for students.</p>
+        </div>
+        <div class="card" onclick="redirectTo('homework.html')">
+            <div class="icon"><i class="fas fa-tasks"></i></div>
+            <h2>Announce Homework</h2>
+            <p>Assign homework tasks and announcements.</p>
+        </div>
+        <div class="card" onclick="redirectTo('assign-assignments.html')">
+            <div class="icon"><i class="fas fa-folder-open"></i></div>
+            <h2>Assign Assignments</h2>
+            <p>Distribute assignments and track submissions.</p>
+        </div>
+    </div>
+
+    <script>
+        function redirectTo(page) {
+            // Simulating redirection to the respective page
+            alert(`Redirecting to: ${page}`);
+            // Replace with actual redirection logic
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

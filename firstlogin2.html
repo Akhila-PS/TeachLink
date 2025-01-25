@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4A90E2, #50E3C2);
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .container h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .buttons a {
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            color: #fff;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        /* Student login button: blue and white */
+        .buttons a.student {
+            background: #4A90E2;
+        }
+
+        .buttons a.student:hover {
+            background: #357ABD;
+        }
+
+        /* Teacher login button: teal and white */
+        .buttons a.teacher {
+            background: #50E3C2;
+        }
+
+        .buttons a.teacher:hover {
+            background: #3CB393;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome! Please Choose Your Login</h1>
+        <div class="buttons">
+            <a href="studentlogin1.html" class="student">Student Login</a>
+            <a href="teachersconnect.html" class="teacher">Teacher Login</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4A90E2, #50E3C2);
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .container h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .buttons a {
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            color: #fff;
+            background: #4A90E2;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .buttons a:hover {
+            background: #357ABD;
+        }
+
+        .buttons a.teacher {
+            background: #50E3C2;
+        }
+
+        .buttons a.teacher:hover {
+            background: #3CB393;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome! Please Choose Your Login</h1>
+        <div class="buttons">
+            <a href="student-login.html">Student Login</a>
+            <a href="teacher-login.html" class="teacher">Teacher Login</a>
+        </div>
+    </div>
+</body>
+</html>
