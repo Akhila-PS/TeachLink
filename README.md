@@ -6,8 +6,8 @@ Team Name :Nammal
 
 Team Members:
   Member 1:Aiswarya S-NSS College Of Engineering,Palakkad
-  Member 1:Aiswarya S-NSS College Of Engineering,Palakkad
-  Member 1:Aiswarya S-NSS College Of Engineering,Palakkad
+  Member 1:Akhila P S-NSS College Of Engineering,Palakkad
+  Member 1:Fathima Sahala K-NSS College Of Engineering,Palakkad
 
 Hosted Project Link
 
