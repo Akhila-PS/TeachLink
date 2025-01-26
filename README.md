@@ -1,4 +1,5 @@
 TEACHLINK
+
 Basic Details:
 
 Team Name :Nammal
@@ -24,6 +25,7 @@ The Solution:
   view teachers personal timetable and attendence,use notepads,write summary,assign homeworks and assignments.
 
 Technical Details:
+
 Technologies/ Components Used:(Software):
    we have used stacks like HTML,CSS,JAVASCRIPT and AIRTABLES(as a database).
    stored some of the login credentials in the database table and connected it to our main code so as to check for signed in detais.
@@ -33,11 +35,14 @@ Implementation;
 
 
 Screenshot:
+   https://drive.google.com/drive/folders/1IatzIY_wHvi9EqCpKNKZb6GVJiKxXws8
 
 Build Photos:
+   https://drive.google.com/drive/folders/1IWBnaXeeHbbapIS4bM5vBR70n2r60gPY
 
 Video:
-
+  https://drive.google.com/file/d/1oa4seh8VKA75IdyI_hDHEs0vquPx_sf6/view?usp=drivesdk
+   
 Team Contributions:
   Aiswarya S:database connectivity
   Akhila P S:HTML,CSS,Javascript code
