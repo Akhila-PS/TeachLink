@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text and Voice Post</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: center;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            width: 100%;
+            background-color: #008080;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            margin: 0 20px;
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #006666;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #008080;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .input-container textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 2px solid #008080;
+            border-radius: 5px;
+            font-size: 1rem;
+            resize: none;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .input-container textarea:focus {
+            border-color: #006666;
+        }
+
+        .send-btn {
+            background-color: #008080;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background-color: #006666;
+        }
+
+        .messages-container {
+            margin-top: 20px;
+        }
+
+        .message {
+            background-color: #e1f7f3;
+            border: 1px solid #008080;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .message button {
+            background-color: #ff5733;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .message button:hover {
+            background-color: #cc4629;
+        }
+
+        /* Record Button Styles */
+        .record-btn {
+            background-color: #008080; /* Start recording button color */
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .recording {
+            background-color: #cc4629; /* Stop recording button color */
+        }
+
+        .record-btn:hover {
+            background-color: #006666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="chat.html">GoBack</a>
+        <a href="profile-page.html">Profile</a>
+        <a href="teachersconnect.html">Logout</a>
+    </div>
+
+    <div class="container">
+        <h1>Post Your Message</h1>
+        <div class="input-container">
+            <textarea id="message-input" placeholder="Type your message..."></textarea>
+            <button class="send-btn" onclick="postMessage()">Send</button>
+        </div>
+
+        <div class="input-container">
+            <button id="record-btn" class="record-btn" onclick="toggleRecording()">Start Recording</button>
+        </div>
+
+        <div class="messages-container" id="messages-container">
+            <!-- Messages will appear here -->
+        </div>
+    </div>
+
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+        let audioBlob;
+        let audioUrl;
+        let audio;
+        let isRecording = false;
+
+        // Load messages from localStorage
+        window.onload = function() {
+            loadMessages();
+        }
+
+        // Post the text message
+        function postMessage() {
+            const messageInput = document.getElementById('message-input');
+            const messageText = messageInput.value.trim();
+
+            if (messageText) {
+                const messageContainer = document.getElementById('messages-container');
+                const newMessage = document.createElement('div');
+                newMessage.classList.add('message');
+                newMessage.innerHTML = `${messageText} <button onclick="deleteMessage(this)">Delete</button>`;
+                messageContainer.appendChild(newMessage);
+
+                // Save message to localStorage
+                saveMessages();
+
+                // Clear the input field
+                messageInput.value = '';
+            } else {
+                alert('Please type a message before sending.');
+            }
+        }
+
+        // Toggle the recording button and start/stop recording
+        function toggleRecording() {
+            const recordBtn = document.getElementById('record-btn');
+
+            if (isRecording) {
+                stopRecording();
+                recordBtn.textContent = "Start Recording";
+                recordBtn.classList.remove('recording');
+            } else {
+                startRecording();
+                recordBtn.textContent = "Stop Recording";
+                recordBtn.classList.add('recording');
+            }
+            isRecording = !isRecording;
+        }
+
+        // Start recording voice message
+        function startRecording() {
+            audioChunks = [];
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.start();
+
+                    mediaRecorder.addEventListener("dataavailable", event => {
+                        audioChunks.push(event.data);
+                    });
+
+                    mediaRecorder.addEventListener("stop", () => {
+                        audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        audioUrl = URL.createObjectURL(audioBlob);
+                        audio = new Audio(audioUrl);
+
+                        // Show the recorded audio in the messages container
+                        const messageContainer = document.getElementById('messages-container');
+                        const newMessage = document.createElement('div');
+                        newMessage.classList.add('message');
+                        newMessage.innerHTML =`<audio controls><source src="${audioUrl}" type="audio/wav"></audio> <button onclick="deleteMessage(this)">Delete</button>`;
+                        messageContainer.appendChild(newMessage);
+
+                        // Save message to localStorage
+                        saveMessages();
+                    });
+                })
+                .catch(error => {
+                    alert("Error accessing the microphone: " + error.message);
+                });
+        }
+
+        // Stop the recording
+        function stopRecording() {
+            mediaRecorder.stop();
+        }
+
+        // Delete a message
+        function deleteMessage(button) {
+            button.parentElement.remove();
+            saveMessages();  // Update localStorage after deletion
+        }
+
+        // Save messages to localStorage
+        function saveMessages() {
+            const messages = [];
+            const messageContainers = document.getElementsByClassName('message');
+            for (let message of messageContainers) {
+                messages.push(message.innerHTML);
+            }
+            localStorage.setItem('messages', JSON.stringify(messages));
+        }
+
+        // Load messages from localStorage
+        function loadMessages() {
+            const savedMessages = JSON.parse(localStorage.getItem('messages')) || [];
+            const messageContainer = document.getElementById('messages-container');
+            savedMessages.forEach(msg => {
+                const newMessage = document.createElement('div');
+                newMessage.classList.add('message');
+                newMessage.innerHTML = msg;
+                messageContainer.appendChild(newMessage);
+            });
+        }
+    </script>
+</body>
+</html>
