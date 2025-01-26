@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Upload</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            width: 100%;
+            background-color: #008080;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .user-options {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar .user-options .profile, 
+        .navbar .user-options .logout, 
+        .navbar .user-options .back {
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .navbar .user-options .back a {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Form Container */
+        .form-container {
+            width: 90%;
+            max-width: 800px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        /* Date Picker */
+        .date-picker {
+            margin-bottom: 1.5rem;
+        }
+
+        .date-picker input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 2px solid #008080;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        /* Attendance List */
+        .attendance-list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 1.5rem;
+        }
+
+        .attendance-list label {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .attendance-list input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            background-color: #008080;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .submit-btn:hover {
+            background-color: #006666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Teacher Dashboard</div>
+        <div class="user-options">
+            <div class="back"><a href="afterLogin5.html">Back</a></div>
+            <div class="logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</div>
+        </div>
+    </div>
+
+    <!-- Attendance Form Container -->
+    <div class="form-container">
+        <h1>Mark Attendance</h1>
+
+        <!-- Date Picker -->
+        <div class="date-picker">
+            <input type="date" id="attendance-date" required>
+        </div>
+
+        <!-- Attendance List -->
+        <div class="attendance-list">
+            <label>
+                <input type="checkbox" name="attendance" value="Abhjith"> Abhjith
+            </label>
+            <label>
+                <input type="checkbox" name="attendance" value="Adharv"> Adharv
+            </label>
+            <label>
+                <input type="checkbox" name="attendance" value="Adwaith"> Adwaith
+            </label>
+            <label>
+                <input type="checkbox" name="attendance" value="Adithya"> Adithya
+            </label>
+            <label>
+                <input type="checkbox" name="attendance" value="Aiswarya"> Aiswarya
+            </label>
+            <label>
+                <input type="checkbox" name="attendance" value="Akash"> Akash
+            </label>
+            <label>
+                <input type="checkbox" name="attendance" value="Akhila"> Akhila
+            </label>
+            <label>
+                <input type="checkbox" name="attendance" value="Sahala"> Sahala
+            </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="submit-btn" onclick="submitAttendance()">Submit Attendance</button>
+    </div>
+
+    <script>
+        function logout() {
+            // Simulate logout logic
+            alert("Logging out...");
+            window.location.href = 'firstlogin2.html'; // Redirect to login page (example)
+        }
+
+        async function submitAttendance() {
+            const date = document.getElementById('attendance-date').value;
+            const checkedNames = [];
+            const checkboxes = document.querySelectorAll('input[name="attendance"]:checked');
+            checkboxes.forEach((checkbox) => {
+                checkedNames.push(checkbox.value);
+            });
+
+            if (date && checkedNames.length > 0) {
+                const airtableApiKey = "patZHnZBDTwRXv8V9.9d0d551b5a1b7654e94549117ca7d8a6cbeee802de81db819d5f69221e44b064";
+                const airtableBaseId = "appM6HbDyTUY2W9Oq";
+                const airtableTableId = "tbloQlqTcG1GKTYO5";
+
+                const records = checkedNames.map((name) => ({
+                    fields: {
+                        Date: date,
+                        StudentName: name,
+                        Attendance: "Present"
+                    }
+                }));
+
+                try {
+                    const response = await fetch(`https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}`, {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${airtableApiKey}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ records })
+                    });
+
+                    if (response.ok) {
+                        alert(`Attendance for ${date} has been successfully uploaded.`);
+                        window.location.href = 'attendanceSuccess.html';
+                    } else {
+                        const errorData = await response.json();
+                        console.error("Error uploading attendance:", errorData);
+                        alert("Failed to upload attendance. Please try again.");
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("An error occurred while uploading attendance. Please check your network connection.");
+                }
+            } else {
+                alert("Please select a date and at least one student to mark attendance.");
+            }
+        }
+    </script>
+</body>
+</html>

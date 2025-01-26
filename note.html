@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notepad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #008080, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .navbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #008080;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            color: white;
+            font-size: 18px;
+        }
+        .navbar a, .navbar span {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 400px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .add-btn {
+            background: #008080;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .note-list {
+            margin-top: 20px;
+            list-style: none;
+            padding: 0;
+        }
+        .note-item {
+            background: #e0f7f7;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="afterLogin5.html" onclick="history.back()">GoBack</a>
+        <span>Profile</span>
+        <a href="teachersconnect.html" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="container">
+        <h2>Notepad</h2>
+        <input type="date" id="noteDate">
+        <textarea id="noteText" placeholder="Write your note..."></textarea>
+        <button class="add-btn" onclick="addNote()">+</button>
+        <ul class="note-list" id="noteList"></ul>
+    </div>
+
+    <script>
+        function addNote() {
+            const noteText = document.getElementById('noteText').value;
+            const noteDate = document.getElementById('noteDate').value;
+            if (noteText && noteDate) {
+                const noteList = document.getElementById('noteList');
+                const li = document.createElement('li');
+                li.className = 'note-item';
+                li.innerHTML = `${noteDate}: ${noteText} <button class="delete-btn" onclick="deleteNote(this)">x</button>`;
+
+
+                noteList.appendChild(li);
+                document.getElementById('noteText').value = '';
+                document.getElementById('noteDate').value = '';
+            } else {
+                alert('Please enter a note and select a date.');
+            }
+        }
+        
+        function deleteNote(button) {
+            button.parentElement.remove();
+        }
+
+        function logout() {
+            window.location.href = "logout.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Study Materials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #008080;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .user-options a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .navbar .user-options a:hover {
+            text-decoration: underline;
+        }
+
+        .upload-container {
+            width: 90%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .upload-container h1 {
+            margin-bottom: 20px;
+            color: #008080;
+        }
+
+        .file-input {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 1rem;
+            color: #008080;
+            border: 2px solid #008080;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .file-input:hover {
+            background-color: #e0f7f7;
+        }
+
+        .submit-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #008080;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #005757;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            color: green;
+            font-size: 1.2rem;
+        }
+
+        .uploaded-files {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .uploaded-files ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .uploaded-files li {
+            margin: 5px 0;
+            color: #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Teacher Dashboard</div>
+        <div class="user-options">
+            <a href="afterLogin5.html" class="goback">GoBack</a>
+            <a href="profile.html" class="profile">Profile</a>
+            <a href="teachersconnect.html" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="upload-container">
+        <h1>Upload Study Material</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" name="studyMaterial" id="studyMaterial" class="file-input" accept="application/pdf">
+            <br>
+            <button type="submit" class="submit-btn">Upload</button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            Material uploaded successfully!
+        </div>
+
+        <div class="uploaded-files">
+            <h2>Uploaded Files:</h2>
+            <ul id="fileList">
+                <!-- List of uploaded files will appear here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Load stored files from localStorage on page load
+        let uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+
+        // Display files stored in localStorage
+        updateFileList();
+
+        // Handle form submission
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the form from submitting the traditional way
+
+            const fileInput = document.getElementById('studyMaterial');
+            const file = fileInput.files[0];
+
+            if (file) {
+                if (file.type === 'application/pdf') {
+                    if (uploadedFiles.length < 5) {
+                        uploadedFiles.push(file.name); // Add file name to the array
+                        localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles)); // Store in localStorage
+                        updateFileList(); // Update the displayed file list
+                        document.getElementById('successMessage').style.display = 'block';
+                        setTimeout(() => {
+                            document.getElementById('successMessage').style.display = 'none';
+                        }, 3000);
+                        fileInput.value = ''; // Clear the input after upload
+                    } else {
+                        alert('You can only upload a maximum of 5 PDFs.');
+                    }
+                } else {
+                    alert('Please upload a PDF file.');
+                }
+            } else {
+                alert('Please select a file to upload.');
+            }
+        });
+
+        // Update the file list display
+        function updateFileList() {
+            const fileListContainer = document.getElementById('fileList');
+            fileListContainer.innerHTML = ''; // Clear the current list
+
+            uploadedFiles.forEach((file, index) => {
+                const li = document.createElement('li');
+                li.textContent = file;
+
+                // Create delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete-btn';
+                deleteButton.onclick = () => deleteFile(index);
+
+                li.appendChild(deleteButton);
+                fileListContainer.appendChild(li);
+            });
+        }
+
+        // Function to delete a file
+        function deleteFile(index) {
+            uploadedFiles.splice(index, 1); // Remove the file from the array
+            localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles)); // Update localStorage
+            updateFileList(); // Update the displayed file list
+        }
+    </script>
+</body>
+</html>

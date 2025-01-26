@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marks Uploading</title>
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      flex-shrink: 0;
+    }
+
+    .content-wrapper {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #004d4d;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 500px;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007d7d;
+      color: white;
+      padding: 15px 20px;
+      font-size: 18px;
+    }
+
+    .navbar .title {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .navbar .links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .navbar .links a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+    }
+
+    .navbar .links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007d7d;
+      color: white;
+    }
+
+    td {
+      background-color: #e8f6f6;
+    }
+
+    input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      text-align: center;
+    }
+
+    /* Dropdown */
+    .subject-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Brings the label and dropdown closer */
+      margin-bottom: 20px;
+     
+    }
+
+    select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #007d7d;
+    }
+
+    /* Button */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007d7d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #005c5c;
+    }
+
+    .success-message {
+      text-align: center;
+      color: #007d7d;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="title">Teacher Dashboard</div>
+    <div class="links">
+      <a href="afterlogin5.html">Go Back</a>
+      <a href="#profile">Profile</a>
+      <a href="teachersconnect.html">Logout</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <h1>Marks Uploading Page</h1>
+    <div class="container">
+      <!-- Dropdown for Subject -->
+      <div class="subject-dropdown">
+        <label for="subject">Select Subject:</label>
+        <select id="subject">
+          <option value="math">Math</option>
+          <option value="science">Science</option>
+          <option value="english">English</option>
+        </select>
+      </div>
+
+      <!-- Marks Table -->
+      <table>
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Roll Number</th>
+            <th>Marks (out of 100)</th>
+          </tr>
+        </thead>
+        <tbody id="students-table">
+          <!-- Rows will be populated using JavaScript -->
+        </tbody>
+      </table>
+
+      <!-- Upload Button -->
+      <div style="text-align: center;">
+        <button class="btn" id="upload-marks">Upload Marks</button>
+      </div>
+
+      <!-- Success Message -->
+      <div class="success-message" id="success-message" style="display: none;">
+        Marks uploaded successfully!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Example student data
+    const students = [
+    { name: "Abhijith", roll: "01" },
+      { name: "Adharv", roll: "02" },
+      { name: "Aditya", roll: "03" },
+      { name: "Adwaith", roll: "04" },
+      { name: "Aiswarya", roll: "05" },
+      { name: "Akash", roll: "06" },
+      { name: "Akhila", roll: "07" },
+      { name: "Sahala", roll: "08" }
+    ];
+
+    const studentsTable = document.getElementById("students-table");
+
+    // Populate the table with students
+    students.forEach(student => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${student.name}</td>
+        <td>${student.roll}</td>
+        <td><input type="number" min="0" max="100" class="marks-input"></td>
+      `;
+      studentsTable.appendChild(row);
+    });
+
+    // Upload Marks Button Click
+    document.getElementById("upload-marks").addEventListener("click", () => {
+      const subject = document.getElementById("subject").value;
+      const marksInputs = document.querySelectorAll(".marks-input");
+      const marksData = [];
+
+      marksInputs.forEach((input, index) => {
+        const marks = input.value;
+        if (marks !== "" && marks >= 0 && marks <= 100) {
+          marksData.push({
+            name: students[index].name,
+            roll: students[index].roll,
+            subject: subject,
+            marks: marks
+          });
+        }
+      });
+
+      if (marksData.length === students.length) {
+        console.log("Uploaded Marks:", marksData); // Replace this with a backend call
+        document.getElementById("success-message").style.display = "block";
+      } else {
+        alert("Please fill in all marks correctly!");
+      }
+    });
+  </script>
+</body>
+</html>

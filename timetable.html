@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Timetable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #008080;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .user-options a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .navbar .user-options a:hover {
+            text-decoration: underline;
+        }
+
+        .timetable-container {
+            width: 90%;
+            max-width: 1000px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .timetable-container h1 {
+            color: #008080;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #008080;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        th {
+            background-color: #008080;
+            color: white;
+        }
+
+        td {
+            background-color: #e1f7f3;
+        }
+
+        .time {
+            background-color: #006666;
+            color: white;
+            font-weight: bold;
+        }
+
+        .subject {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Teacher Dashboard</div>
+        <div class="user-options">
+            <a href="afterLogin5.html" class="goback">GoBack</a>
+            <a href="profile.html" class="profile">Profile</a>
+            <a href="teachersconnect.html" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="timetable-container">
+        <h1>Teacher's Weekly Timetable</h1>
+        <table>
+            <tr>
+                <th>Day/Period</th>
+                <th>9:00 - 10:00</th>
+                <th>10:00 - 11:00</th>
+                <th>11:00 - 12:00</th>
+                <th>12:00 - 1:00</th>
+                <th>1:00 - 2:00</th>
+                <th>2:00 - 3:00</th>
+            </tr>
+            <tr>
+                <td class="time">Monday</td>
+                <td><span class="subject">S4 CSE</span><br> Data Structures</td>
+                <td><span class="subject">S6 CSE</span><br> Operating Systems</td>
+                <td><span class="subject">S2 CSE</span><br> C Programming</td>
+                <td><span class="subject">Lunch Break</span></td>
+                <td><span class="subject">S8 CSE</span><br> Machine Learning</td>
+                <td><span class="subject">S4 CSE</span><br> Algorithms</td>
+            </tr>
+            <tr>
+                <td class="time">Tuesday</td>
+                <td><span class="subject">S6 CSE</span><br> DBMS</td>
+                <td><span class="subject">S2 CSE</span><br> OOPS</td>
+                <td><span class="subject">S8 CSE</span><br> AI</td>
+                <td><span class="subject">Lunch Break</span></td>
+                <td><span class="subject">S4 CSE</span><br> Computer Networks</td>
+                <td><span class="subject">S6 CSE</span><br> Web Tech</td>
+            </tr>
+            <tr>
+                <td class="time">Wednesday</td>
+                <td><span class="subject">S2 CSE</span><br> Java</td>
+                <td><span class="subject">S8 CSE</span><br> Cyber Security</td>
+                <td><span class="subject">S4 CSE</span><br> Python</td>
+                <td><span class="subject">Lunch Break</span></td>
+                <td><span class="subject">S6 CSE</span><br> Cloud Computing</td>
+                <td><span class="subject">S2 CSE</span><br> Data Science</td>
+            </tr>
+            <tr>
+                <td class="time">Thursday</td>
+                <td><span class="subject">S8 CSE</span><br> IoT</td>
+                <td><span class="subject">S4 CSE</span><br> Cyber Security</td>
+                <td><span class="subject">S6 CSE</span><br> AI</td>
+                <td><span class="subject">Lunch Break</span></td>
+                <td><span class="subject">S2 CSE</span><br> Database</td>
+                <td><span class="subject">S8 CSE</span><br> Blockchain</td>
+            </tr>
+            <tr>
+                <td class="time">Friday</td>
+                <td><span class="subject">S4 CSE</span><br> Software Testing</td>
+                <td><span class="subject">S2 CSE</span><br> Web Dev</td>
+                <td><span class="subject">S6 CSE</span><br> Data Analytics</td>
+                <td><span class="subject">Lunch Break</span></td>
+                <td><span class="subject">S8 CSE</span><br> Machine Learning</td>
+                <td><span class="subject">S4 CSE</span><br> AI</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

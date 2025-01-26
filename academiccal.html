@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Folders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f9f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #006f69;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;  /* Align navbar items to the right */
+            align-items: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;  /* Ensure spacing between the links */
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #b0e0d3;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .folder {
+            background: linear-gradient(135deg, #006f69, #b0e0d3);
+            border-radius: 20px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .folder:hover {
+            transform: scale(1.05);
+        }
+
+        .upload-link {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #008e8b;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-link:hover {
+            background-color: #005e5b;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="afterLogin5.html" class="navbar-link" onclick="goBack()">GoBack</a>
+        <a href="#" class="navbar-link" onclick="goToProfile()">Profile</a>
+        <a href="teachersconnect.html" class="navbar-link" onclick="logout()">Logout</a>
+    </div>
+
+    <!-- Folder Container -->
+    <div class="container">
+        <div class="folder">
+            <a href="C:\Users\aiswa\OneDrive\Desktop\teachers dashboard\1. B. Tech Academic Calender _S4_S6_S8 Dec 24-May 25.pdf" class="upload-link" onclick="uploadFile('Ac-2021-2022')">Ac-2021-2022</a>
+        </div>
+        <div class="folder">
+            <a href="C:\Users\aiswa\OneDrive\Desktop\teachers dashboard\1. B. Tech Academic Calender _S4_S6_S8 Dec 24-May 25.pdf" class="upload-link" onclick="uploadFile('Ac-2022-2023')">Ac-2022-2023</a>
+        </div>
+        <div class="folder">
+            <a href="C:\Users\aiswa\OneDrive\Desktop\teachers dashboard\1. B. Tech Academic Calender _S4_S6_S8 Dec 24-May 25.pdf" class="upload-link" onclick="uploadFile('Ac-2023-2024')">Ac-2023-2024</a>
+        </div>
+        <div class="folder">
+            <a href="C:\Users\aiswa\OneDrive\Desktop\teachers dashboard\1. B. Tech Academic Calender _S4_S6_S8 Dec 24-May 25.pdf" class="upload-link" onclick="uploadFile('Ac-2024-2025')">Ac-2024-2025</a>
+        </div>
+    </div>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Upload Calendar for <span id="folderName"></span></h2>
+            <input type="file" id="calendarFile" accept=".pdf,.docx,.xlsx">
+            <button onclick="submitFile()">Upload</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle file upload modal
+        function uploadFile(folderName) {
+            document.getElementById('folderName').textContent = folderName;
+            document.getElementById('uploadModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('uploadModal').style.display = "none";
+        }
+
+        function submitFile() {
+            const fileInput = document.getElementById('calendarFile');
+            if (fileInput.files.length > 0) {
+                alert('Calendar file uploaded successfully!');
+                closeModal();
+            } else {
+                alert('Please select a file to upload.');
+            }
+        }
+
+        // Navbar Link Functions
+        function goBack() {
+            alert('Going back!');
+        }
+
+        function goToProfile() {
+            alert('Going to Profile!');
+        }
+
+        function logout() {
+            alert('Logging out!');
+        }
+    </script>
+
+</body>
+</html>
